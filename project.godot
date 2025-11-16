@@ -17,6 +17,12 @@ boot_splash/bg_color=Color(0.14174536, 0.13873631, 0.331443, 1)
 boot_splash/image="uid://f4w5x66dooio"
 config/icon="res://icon.svg"
 
+[display]
+
+window/size/viewport_width=1440
+window/size/viewport_height=1080
+window/stretch/mode="canvas_items"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg")
