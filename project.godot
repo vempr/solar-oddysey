@@ -17,6 +17,11 @@ boot_splash/bg_color=Color(0.14174536, 0.13873631, 0.331443, 1)
 boot_splash/image="uid://f4w5x66dooio"
 config/icon="res://icon.svg"
 
+[autoload]
+
+State="*res://scripts/STATE.gd"
+G="*res://scripts/G.gd"
+
 [display]
 
 window/size/viewport_width=1440
