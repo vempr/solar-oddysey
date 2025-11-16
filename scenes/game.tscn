@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwd0guyo0vvet"]
+
+[ext_resource type="Script" uid="uid://cidhqnx17ewn4" path="res://scripts/game.gd" id="1_uwrxv"]
+[ext_resource type="FontFile" uid="uid://ctndyye843nan" path="res://assets/M 8pt.ttf" id="2_yqjtg"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_uwrxv")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_yqjtg")
+theme_override_font_sizes/font_size = 132
+text = "123231"
