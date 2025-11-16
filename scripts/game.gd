@@ -1,6 +1,7 @@
 extends Node2D
 
 signal activate_gui
+signal countdown(time: float)
 
 
 func _ready() -> void:
@@ -33,6 +34,11 @@ func launch() -> void:
 		G.PLANET.MERCURY:
 			%MapAnimationPlayer.play("mercury_sun")
 	
+	var t0 = %MapAnimationPlayer.get_section_end_time()
+	var t1 = State.get_time_upgraded(t0)
+	countdown.emit(t1)
+	
+	%MapAnimationPlayer.speed_scale = t0 / t1
 	%RocketAnimationPlayer.play("center")
 
 

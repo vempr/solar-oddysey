@@ -142,20 +142,37 @@ _data = {
 &"venus_mercury": SubResource("Animation_pl11u")
 }
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rysoc"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_264po"]
 atlas = ExtResource("16_ca42v")
-region = Rect2(0, 0, 64, 96)
+region = Rect2(128, 0, 64, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ssvqc"]
 atlas = ExtResource("16_ca42v")
 region = Rect2(64, 0, 64, 96)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_264po"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_rysoc"]
 atlas = ExtResource("16_ca42v")
-region = Rect2(128, 0, 64, 96)
+region = Rect2(0, 0, 64, 96)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1kice"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_264po")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ssvqc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rysoc")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"extinguish",
+"speed": 8.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rysoc")
@@ -256,20 +273,37 @@ animations = [{
 "speed": 8.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bt5mj"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_pl11u"]
 atlas = ExtResource("18_ssvqc")
-region = Rect2(0, 0, 64, 128)
+region = Rect2(128, 0, 64, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e1j6l"]
 atlas = ExtResource("18_ssvqc")
 region = Rect2(64, 0, 64, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pl11u"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_bt5mj"]
 atlas = ExtResource("18_ssvqc")
-region = Rect2(128, 0, 64, 128)
+region = Rect2(0, 0, 64, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_e1j6l"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pl11u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e1j6l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bt5mj")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"extinguish",
+"speed": 8.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_bt5mj")
@@ -353,7 +387,6 @@ unique_name_in_owner = true
 libraries = {
 &"": SubResource("AnimationLibrary_1kice")
 }
-speed_scale = 3.0
 
 [node name="Rects" type="Control" parent="."]
 layout_mode = 3
@@ -559,6 +592,7 @@ theme_override_font_sizes/font_size = 30
 text = "Earth"
 
 [node name="MilestoneVenus" type="ColorRect" parent="Rects"]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 1246.0
 offset_top = 158.0
@@ -607,6 +641,7 @@ offset_bottom = 66.0
 color = Color(0, 0, 0, 0.54901963)
 
 [node name="MilestoneMercury" type="ColorRect" parent="Rects"]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 1071.0
 offset_top = 229.0
@@ -655,6 +690,7 @@ offset_bottom = 66.0
 color = Color(0, 0, 0, 0.54901963)
 
 [node name="MilestoneSun" type="ColorRect" parent="Rects"]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 1246.0
 offset_top = 229.0
@@ -703,6 +739,7 @@ offset_bottom = 66.0
 color = Color(0, 0, 0, 0.54901963)
 
 [node name="LaunchDataC" type="ColorRect" parent="Rects"]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 1071.0
 offset_top = 381.0
@@ -740,9 +777,9 @@ offset_bottom = 57.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_yqjtg")
 theme_override_font_sizes/font_size = 30
-text = "Distance: 4.0e8
+text = "Distance: 4.0e7
 Fuel: 10.0kL
-Stability: 100.00%
+Stability: 100.0%
 Ammo: 0"
 
 [node name="CrowdfundingC" type="ColorRect" parent="Rects"]
@@ -777,13 +814,14 @@ color = Color(0.83137256, 0.8156863, 0.78431374, 1)
 [node name="Label" type="Label" parent="Rects/CrowdfundingC"]
 layout_mode = 0
 offset_left = 13.0
-offset_top = 7.0
-offset_right = 137.0
-offset_bottom = 57.0
+offset_top = 11.0
+offset_right = 297.0
+offset_bottom = 109.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 12
 theme_override_fonts/font = ExtResource("2_yqjtg")
-theme_override_font_sizes/font_size = 29
-text = "Rate: 856,450$/s
+theme_override_font_sizes/font_size = 26
+text = "Rate: 10,000.00$/s
 (w/o trip bonuses)"
 
 [node name="UpgradeFuelC" type="ColorRect" parent="Rects"]
@@ -830,7 +868,7 @@ offset_bottom = 57.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_yqjtg")
 theme_override_font_sizes/font_size = 22
-text = "Energy: 13,231,323$"
+text = "Energy: 1,000,000$"
 
 [node name="UpgradeStabilityC" type="ColorRect" parent="Rects"]
 layout_mode = 0
@@ -871,7 +909,7 @@ offset_bottom = 57.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_yqjtg")
 theme_override_font_sizes/font_size = 22
-text = "Stability: 241,534,683$"
+text = "Stability: 10,000,000$"
 
 [node name="Deactivated" type="ColorRect" parent="Rects/UpgradeStabilityC"]
 layout_mode = 0
@@ -918,7 +956,7 @@ offset_bottom = 57.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_yqjtg")
 theme_override_font_sizes/font_size = 22
-text = "Ammo: 5,913,534$"
+text = "Ammo: 100,000$"
 
 [node name="Deactivated" type="ColorRect" parent="Rects/UpgradeFuelC3"]
 layout_mode = 0
@@ -938,7 +976,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_fonts/font = ExtResource("2_yqjtg")
 theme_override_font_sizes/font_size = 30
-text = "Budget: 1,242,764,643.42$"
+text = "Budget: 0.00$"
 
 [node name="Launch" type="ColorRect" parent="Rects"]
 unique_name_in_owner = true
@@ -1060,7 +1098,7 @@ visible = false
 z_index = -1
 position = Vector2(0, 16)
 sprite_frames = SubResource("SpriteFrames_1kice")
-animation = &"ignite"
+animation = &"extinguish"
 
 [node name="Explode" type="AnimatedSprite2D" parent="Rocket"]
 unique_name_in_owner = true
@@ -1085,7 +1123,8 @@ visible = false
 z_index = -1
 position = Vector2(0, 0.9999995)
 sprite_frames = SubResource("SpriteFrames_e1j6l")
-animation = &"ignite"
+animation = &"extinguish"
+speed_scale = 2.0
 
 [node name="RocketAnimationPlayer" type="AnimationPlayer" parent="Rocket"]
 unique_name_in_owner = true
@@ -1094,6 +1133,7 @@ libraries = {
 }
 
 [connection signal="activate_gui" from="." to="Rects" method="_on_game_activate_gui"]
+[connection signal="countdown" from="." to="Rects" method="_on_game_countdown"]
 [connection signal="animation_finished" from="Map/MapAnimationPlayer" to="." method="_on_map_animation_player_animation_finished"]
 [connection signal="pressed" from="Rects/Launch/LaunchButton" to="." method="_on_launch_button_pressed"]
 [connection signal="pressed" from="Rects/Launch/LaunchButton" to="Rects" method="_on_launch_button_pressed"]
