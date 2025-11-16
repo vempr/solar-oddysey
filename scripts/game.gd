@@ -34,6 +34,9 @@ func launch() -> void:
 	
 	State.launched = true
 	ignite()
+	$SFX/Takeoff.play(0.5)
+	$SFX/Engine.play()
+	
 	
 	match State.planet:
 		G.PLANET.EARTH:
@@ -103,6 +106,7 @@ func explode() -> void:
 	
 	%Explode.visible = true
 	%Explode.play("boom")
+	$SFX/Kaboom.play()
 
 
 func win() -> void:
@@ -116,12 +120,16 @@ func _on_map_animation_player_animation_finished(anim_name: StringName) -> void:
 		toggle_spawn.emit(false)
 		%Asteroids.queue_free()
 		win()
+		$SFX/Engine.stop()
 	elif anim_name == "earth_venus" || anim_name == "venus_mercury":
 		toggle_spawn.emit(false)
 		land()
+		$SFX/Engine.stop()
 
 
 func land() -> void:
+	$SFX/Landing.play()
+	
 	match State.planet:
 		G.PLANET.EARTH:
 			State.planet = G.PLANET.VENUS
@@ -174,3 +182,13 @@ func _on_buy_stability_pressed() -> void:
 func _on_buy_ammo_pressed() -> void:
 	State.budget -= G.get_ammo_upgrade_cost()
 	State.upgrades.ammo += 1
+
+
+func _on_speed_up_pressed() -> void:
+	State.sped_up = !State.sped_up
+	if State.sped_up:
+		%SpeedUpC/Label.text = "1X"
+		Engine.time_scale = 2.0
+	else:
+		%SpeedUpC/Label.text = "2X"
+		Engine.time_scale = 1.0

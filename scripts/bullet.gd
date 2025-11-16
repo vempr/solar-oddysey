@@ -9,6 +9,7 @@ func _process(delta: float) -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	if area.name == "CollideArea":
+		G.kaboom()
 		area.get_parent().queue_free()
-		State.budget += randf_range(10000, 15000)
+		State.budget += randf_range(7000, 10000)
 		queue_free()

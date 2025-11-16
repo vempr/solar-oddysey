@@ -7,6 +7,20 @@ var distance := {
 	PLANET.VENUS: 50_000_000,
 	PLANET.MERCURY: 60_000_000,
 }
+var mpkb := AudioStreamPlayer.new()
+
+func _ready() -> void:
+	var mp = AudioStreamPlayer.new()
+	mp.process_mode = Node.PROCESS_MODE_ALWAYS
+	add_child(mp)
+	mp.stream = load("res://assets/sfx/bgm.mp3")
+	mp.pitch_scale = 0.85
+	mp.volume_db = -20.0
+	mp.play()
+	
+	add_child(mpkb)
+	mpkb.stream = load("res://assets/sfx/kaboom.mp3")
+	mpkb.volume_db = -20.0
 
 
 func to_sci_notation(x: float, threshold := 10_000) -> String:
@@ -55,3 +69,7 @@ func get_stability_upgrade_cost() -> float:
 
 func get_ammo_upgrade_cost() -> float:
 	return 100_000.0 + (1_900_000.0 / 14.0) * (State.upgrades.ammo - 1.0)
+
+
+func kaboom() -> void:
+	mpkb.play()

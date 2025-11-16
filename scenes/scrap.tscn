@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://dgltve503krmp"]
+
+[ext_resource type="Script" uid="uid://bhd8awtfxpedq" path="res://scripts/scrap.gd" id="1_3spf6"]
+[ext_resource type="Texture2D" uid="uid://dypqcy6a1126" path="res://assets/aseprite/scraps/scrap-2.png" id="1_q3r8y"]
+[ext_resource type="Texture2D" uid="uid://cmjmoxc02c1tm" path="res://assets/aseprite/scraps/scrap-3.png" id="2_3spf6"]
+[ext_resource type="Texture2D" uid="uid://c5li2rdajgr4q" path="res://assets/aseprite/scraps/scrap-4.png" id="3_cmosl"]
+[ext_resource type="Texture2D" uid="uid://w3aocgur7ph1" path="res://assets/aseprite/scraps/scrap-5.png" id="4_m3knw"]
+[ext_resource type="Texture2D" uid="uid://dfl8u5j4ptrc6" path="res://assets/aseprite/scraps/scrap.png" id="5_6bpxk"]
+
+[node name="Scrap" type="Control"]
+z_index = 10
+layout_mode = 3
+anchors_preset = 0
+offset_left = -41.999996
+offset_top = -41.999996
+offset_right = -24.999996
+offset_bottom = -24.999996
+scale = Vector2(5, 5)
+script = ExtResource("1_3spf6")
+
+[node name="Scrap2" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(7.9999995, 7.9999995)
+texture = ExtResource("1_q3r8y")
+
+[node name="Scrap3" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(7.9999995, 7.9999995)
+texture = ExtResource("2_3spf6")
+
+[node name="Scrap4" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(7.9999995, 7.9999995)
+texture = ExtResource("3_cmosl")
+
+[node name="Scrap5" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(7.9999995, 7.9999995)
+texture = ExtResource("4_m3knw")
+
+[node name="Scrap" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(7.9999995, 7.9999995)
+texture = ExtResource("5_6bpxk")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

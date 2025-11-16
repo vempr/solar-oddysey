@@ -1,5 +1,6 @@
 extends Node
 
+var sped_up := false
 var completed := false
 var planet: G.PLANET = G.PLANET.EARTH
 var launched := false

@@ -13,6 +13,7 @@ func _process(_delta: float) -> void:
 			return
 		
 		State.ammo -= 1
+		$"../SFX/Laser".play()
 		
 		var b = BulletScene.instantiate()
 		b.rotation = %Gun.rotation - deg_to_rad(90)
@@ -34,6 +35,8 @@ func hide_all() -> void:
 
 
 func _on_hit_area_area_entered(area: Area2D) -> void:
+	$"../SFX/Boom".play()
+	
 	State.stability -= randf_range(5.0, 8.0)
 	area.get_parent().queue_free()
 	

@@ -3,7 +3,9 @@ extends Sprite2D
 var spawn_rate: float
 var spawn := false
 var t := 0.0
+# var ts := 0.0
 
+# @onready var ScrapScene := preload("res://scenes/scrap.tscn")
 @onready var EumoniaScene := preload("res://scenes/asteroids/eumonia.tscn")
 @onready var EuropaScene := preload("res://scenes/asteroids/europa.tscn")
 @onready var NormalAsteroidScene := preload("res://scenes/asteroids/normal_asteroid.tscn")
@@ -20,6 +22,11 @@ func _process(delta: float) -> void:
 			spawn_asteroid()
 			if a.size() > 500:
 				a.pop_front()
+		
+		#ts += delta
+		#if ts > 0.5:
+			#ts = 0.0
+			#spawn_scrap()
 
 
 func spawn_asteroid() -> void:
@@ -40,6 +47,24 @@ func spawn_asteroid() -> void:
 	%Asteroids.add_child(ast)
 	
 	a.append(ast)
+
+
+#func spawn_scrap() -> void:
+	#var scrap = ScrapScene.instantiate()
+	#
+	#match State.planet:
+		#G.PLANET.EARTH:
+			#%AsteroidPathFollow.progress_ratio = randf_range(0.03, 0.2)
+		#G.PLANET.VENUS:
+			#%AsteroidPathFollow.progress_ratio = randf_range(0.25, 0.54)
+		#G.PLANET.MERCURY:
+			#%AsteroidPathFollow.progress_ratio = randf_range(0.6, 0.9)
+	#
+	#scrap.global_position.x = -600.0
+	#scrap.global_position.y = %AsteroidPathFollow.global_position.y/8.0
+	#%Asteroids.add_child(scrap)
+	#
+	#a.append(scrap)
 
 
 func _on_game_toggle_spawn(s: bool) -> void:
