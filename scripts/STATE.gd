@@ -10,6 +10,8 @@ var upgrades := {
 } # max upgrade is 15
 
 var budget := 0.0
+var crowdfunding := 10000.00
+
 var distance := 40_000_000.0
 var fuel := 10.0
 var stability := 100.00
@@ -25,6 +27,14 @@ func reset() -> void:
 		"stability": 1,
 		"ammo": 1
 	}
+	
+	budget = 0.0
+	crowdfunding = 10000.00
+	
+	distance = 40_000_000.0
+	fuel = 10.0
+	stability = 100.00
+	ammo = 0
 
 
 func get_time_upgraded(time: float) -> float:
@@ -40,3 +50,7 @@ func get_fuel_upgraded() -> float:
 func upgrade_stability() -> void:
 	var normalized = (upgrades.stability - 1.0) / 14.0
 	stability = 100.0 + sqrt(normalized) * 50.0
+
+
+func get_ammo() -> float:
+	return 10.0 * pow(upgrades.ammo - 1.0, 1.26)

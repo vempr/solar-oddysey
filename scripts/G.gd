@@ -43,3 +43,15 @@ func to_money(x: float) -> String:
 		dec_str = dec_str.substr(0, 2)
 
 	return formatted_int + "." + dec_str
+
+
+func get_fuel_upgrade_cost() -> float:
+	return 1_000_000.0 + (9_000_000.0 / 14.0) * (State.upgrades.fuel - 1.0)
+
+
+func get_stability_upgrade_cost() -> float:
+	return 500_000.0 + (4_500_000.0 / 14.0) * (State.upgrades.stability - 1.0)
+
+
+func get_ammo_upgrade_cost() -> float:
+	return 100_000.0 + (1_900_000.0 / 14.0) * (State.upgrades.ammo - 1.0)

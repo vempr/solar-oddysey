@@ -9,6 +9,11 @@ func _process(_delta: float) -> void:
 	%Gun.rotation += deg_to_rad(90)
 	
 	if Input.is_action_pressed("shoot"):
+		if State.ammo <= 0:
+			return
+		
+		State.ammo -= 1
+		
 		var b = BulletScene.instantiate()
 		b.rotation = %Gun.rotation - deg_to_rad(90)
 		b.global_position = %Gun.global_position
@@ -87,3 +92,4 @@ func _on_explode_animation_finished() -> void:
 	var t = get_tree()
 	await t.create_timer(1.0).timeout
 	get_tree().reload_current_scene()
+	State.budget += 20 * State.crowdfunding * (G.distance[State.planet] - State.distance)/G.distance[State.planet]

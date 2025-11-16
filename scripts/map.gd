@@ -47,9 +47,9 @@ func _on_game_toggle_spawn(s: bool) -> void:
 	if s:
 		match State.planet:
 			G.PLANET.EARTH:
-				spawn_rate = 0.2
+				spawn_rate = 0.04
 			G.PLANET.VENUS:
-				spawn_rate = 0.05
+				spawn_rate = 0.025
 			G.PLANET.MERCURY:
 				spawn_rate = 0.01
 	else:

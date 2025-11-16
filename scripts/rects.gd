@@ -20,11 +20,14 @@ func _ready() -> void:
 	
 	update_state()
 	update_launch_data()
+	update_costs()
 
 
 func _process(delta: float) -> void:
+	State.budget += State.crowdfunding * delta
 	%Budget.text = "Budget: " + G.to_money(State.budget) + "$"
-
+	%CrowdfundingC/Label.text = G.to_money(State.crowdfunding) + "$/s\n(w/o trip bonuses)"
+	
 	if t < t0:
 		t += delta
 		if t > t0:
@@ -34,6 +37,16 @@ func _process(delta: float) -> void:
 		State.fuel = s0 - s0*t / t0
 		
 		update_launch_data()
+	
+	if State.launched:
+		%UpgradeFuelC/Deactivated.visible = true
+		%BuyFuel.visible = false
+		%UpgradeStabilityC/Deactivated.visible = true
+		%BuyStability.visible = false
+		%UpgradeAmmoC/Deactivated.visible = true
+		%BuyAmmo.visible = false
+	else:
+		update_costs()
 
 
 func _on_launch_button_pressed() -> void:
@@ -70,6 +83,7 @@ func _on_game_countdown(time: float) -> void:
 func update_state() -> void:
 	State.distance = G.distance[State.planet]
 	State.fuel = State.get_fuel_upgraded()
+	State.ammo = floor(State.get_ammo())
 	State.upgrade_stability()
 	
 	d0 = State.distance
@@ -85,3 +99,38 @@ func update_launch_data() -> void:
 
 func _on_rocket_dead() -> void:
 	t = t0
+
+
+func update_costs() -> void:
+	var f = G.get_fuel_upgrade_cost()
+	var s = G.get_stability_upgrade_cost()
+	var a = G.get_ammo_upgrade_cost()
+	
+	var fuel_maxed_out = State.upgrades.fuel > 14
+	var stability_maxed_out = State.upgrades.stability > 14
+	var ammo_maxed_out = State.upgrades.ammo > 14
+	
+	%UpgradeFuelC/Label.text = "Energy: MAX" if fuel_maxed_out else "Energy: " + G.to_money(f) + "$"
+	%UpgradeStabilityC/Label.text = "Stability: MAX" if stability_maxed_out else "Stability: " + G.to_money(s) + "$"
+	%UpgradeAmmoC/Label.text = "Ammo: MAX" if ammo_maxed_out else "Ammo: " + G.to_money(a) + "$"
+	
+	if State.budget < f || fuel_maxed_out:
+		%UpgradeFuelC/Deactivated.visible = true
+		%BuyFuel.visible = false
+	else:
+		%UpgradeFuelC/Deactivated.visible = false
+		%BuyFuel.visible = true
+	
+	if State.budget < s || stability_maxed_out:
+		%UpgradeStabilityC/Deactivated.visible = true
+		%BuyStability.visible = false
+	else:
+		%UpgradeStabilityC/Deactivated.visible = false
+		%BuyStability.visible = true
+	
+	if State.budget < a || ammo_maxed_out:
+		%UpgradeAmmoC/Deactivated.visible = true
+		%BuyAmmo.visible = false
+	else:
+		%UpgradeAmmoC/Deactivated.visible = false
+		%BuyAmmo.visible = true

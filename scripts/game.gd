@@ -6,6 +6,7 @@ signal toggle_spawn(s: bool)
 
 
 func _ready() -> void:
+	State.launched = false
 	reset_spaceship()
 	match State.planet:
 		G.PLANET.EARTH:
@@ -98,6 +99,7 @@ func explode() -> void:
 	%BlueFire.visible = false
 	%OrangeFire.visible = false
 	%WhiteFire.visible = false
+	%Gun.visible = false
 	
 	%Explode.visible = true
 	%Explode.play("boom")
@@ -111,6 +113,8 @@ func win() -> void:
 
 func _on_map_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "mercury_sun":
+		toggle_spawn.emit(false)
+		%Asteroids.queue_free()
 		win()
 	elif anim_name == "earth_venus" || anim_name == "venus_mercury":
 		toggle_spawn.emit(false)
@@ -127,6 +131,8 @@ func land() -> void:
 	%RocketAnimationPlayer.play("offset")
 	%Rocket.hide_all()
 	%Ship100.visible = true
+	
+	State.crowdfunding += 20000.00
 
 
 func _on_rocket_animation_player_animation_finished(anim_name: StringName) -> void:
@@ -136,6 +142,7 @@ func _on_rocket_animation_player_animation_finished(anim_name: StringName) -> vo
 
 func gui() -> void:
 	State.launched = false
+	State.budget += 100 * State.crowdfunding
 	activate_gui.emit()
 
 
@@ -152,3 +159,18 @@ func _on_orange_fire_animation_finished() -> void:
 func _on_white_fire_animation_finished() -> void:
 	if %WhiteFire.animation == "extinguish":
 		gui()
+
+
+func _on_buy_fuel_pressed() -> void:
+	State.budget -= G.get_fuel_upgrade_cost()
+	State.upgrades.fuel += 1
+
+
+func _on_buy_stability_pressed() -> void:
+	State.budget -= G.get_stability_upgrade_cost()
+	State.upgrades.stability += 1
+
+
+func _on_buy_ammo_pressed() -> void:
+	State.budget -= G.get_ammo_upgrade_cost()
+	State.upgrades.ammo += 1
