@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://beon13vk5edys"]
+
+[ext_resource type="PackedScene" uid="uid://dq78ncc3bpinb" path="res://scenes/asteroid.tscn" id="1_00fky"]
+[ext_resource type="Texture2D" uid="uid://bvhxt367rj7fi" path="res://assets/aseprite/asteroid/normal.png" id="2_un55b"]
+
+[node name="NormalAsteroid" instance=ExtResource("1_00fky")]
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_un55b")
+
+[node name="CollisionShape2D" parent="CollideArea" index="0"]
+position = Vector2(1, 0)

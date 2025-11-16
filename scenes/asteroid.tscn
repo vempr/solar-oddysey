@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dq78ncc3bpinb"]
+
+[ext_resource type="Script" uid="uid://d5rnxi5ka3k4" path="res://scripts/asteroid.gd" id="1_akfqu"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tiu4v"]
+radius = 42.0
+height = 88.0
+
+[node name="Asteroid" type="Node2D"]
+z_index = 4
+script = ExtResource("1_akfqu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(4, 4)
+
+[node name="CollideArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollideArea"]
+shape = SubResource("CapsuleShape2D_tiu4v")

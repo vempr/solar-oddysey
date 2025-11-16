@@ -1,15 +1,18 @@
-[gd_scene load_steps=49 format=3 uid="uid://dwd0guyo0vvet"]
+[gd_scene load_steps=57 format=3 uid="uid://dwd0guyo0vvet"]
 
 [ext_resource type="Script" uid="uid://cidhqnx17ewn4" path="res://scripts/game.gd" id="1_uwrxv"]
 [ext_resource type="FontFile" uid="uid://ctndyye843nan" path="res://assets/M 8pt.ttf" id="2_yqjtg"]
+[ext_resource type="Script" uid="uid://ib8juqclvcv0" path="res://scripts/map.gd" id="3_5newe"]
 [ext_resource type="Script" uid="uid://b5nqy3sfh3vny" path="res://scripts/rects.gd" id="3_ir15t"]
 [ext_resource type="Texture2D" uid="uid://cqfajrpwpkblu" path="res://assets/aseprite/map.png" id="3_lnu2h"]
 [ext_resource type="Texture2D" uid="uid://c5umm3c7c72jn" path="res://assets/aseprite/spaceship/ship-10.png" id="4_kvuet"]
 [ext_resource type="StyleBox" uid="uid://dwvvem4kgg51a" path="res://styles/button.tres" id="4_trtic"]
 [ext_resource type="Texture2D" uid="uid://7se1o7xlxv4s" path="res://assets/aseprite/spaceship/ship-20.png" id="5_trtic"]
 [ext_resource type="Texture2D" uid="uid://dit5yldu8b73e" path="res://assets/aseprite/spaceship/ship-30.png" id="6_ir15t"]
+[ext_resource type="Script" uid="uid://da3fqpmlunqrr" path="res://scripts/rocket.gd" id="7_5newe"]
 [ext_resource type="Texture2D" uid="uid://b0bj3hrgofgn3" path="res://assets/aseprite/spaceship/ship-40.png" id="7_ca42v"]
 [ext_resource type="Texture2D" uid="uid://bdundjwrbc2dq" path="res://assets/aseprite/spaceship/ship-50.png" id="8_rysoc"]
+[ext_resource type="Texture2D" uid="uid://belf5bhrvkdwa" path="res://assets/aseprite/astronaut.png" id="9_bt5mj"]
 [ext_resource type="Texture2D" uid="uid://bls4y8xh22m17" path="res://assets/aseprite/spaceship/ship-60.png" id="9_ssvqc"]
 [ext_resource type="Texture2D" uid="uid://5mrs4kbpfqqi" path="res://assets/aseprite/spaceship/ship-70.png" id="10_264po"]
 [ext_resource type="Texture2D" uid="uid://chj08hmlyqd33" path="res://assets/aseprite/spaceship/ship-80.png" id="11_1kice"]
@@ -19,6 +22,12 @@
 [ext_resource type="Texture2D" uid="uid://cj8regkvmiwg7" path="res://assets/aseprite/spaceship/boom.png" id="17_264po"]
 [ext_resource type="Texture2D" uid="uid://b7w3qjhwxw66p" path="res://assets/aseprite/spaceship/fire/orange.png" id="17_rysoc"]
 [ext_resource type="Texture2D" uid="uid://dyce4i7qiedot" path="res://assets/aseprite/spaceship/fire/white.png" id="18_ssvqc"]
+
+[sub_resource type="Curve2D" id="Curve2D_1kice"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -584, 8347, 0, 0, 0, 0, -584, -10125)
+}
+point_count = 2
 
 [sub_resource type="Animation" id="Animation_ssvqc"]
 resource_name = "earth_venus"
@@ -140,6 +149,44 @@ _data = {
 &"mercury_sun": SubResource("Animation_bhx41"),
 &"venus": SubResource("Animation_bt5mj"),
 &"venus_mercury": SubResource("Animation_pl11u")
+}
+
+[sub_resource type="Animation" id="Animation_sww3w"]
+resource_name = "new_animation"
+length = 5.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.2831855]
+}
+
+[sub_resource type="Animation" id="Animation_suyxu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [6.2831855]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_suyxu"]
+_data = {
+&"RESET": SubResource("Animation_suyxu"),
+&"new_animation": SubResource("Animation_sww3w")
 }
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_264po"]
@@ -373,14 +420,31 @@ _data = {
 &"offset": SubResource("Animation_37s47")
 }
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_264po"]
+radius = 12.3333435
+height = 46.666687
+
 [node name="Game" type="Node2D"]
 script = ExtResource("1_uwrxv")
 
 [node name="Map" type="Sprite2D" parent="."]
-z_index = 1
+z_index = 4
 position = Vector2(536, -8306)
 scale = Vector2(8, 8)
 texture = ExtResource("3_lnu2h")
+script = ExtResource("3_5newe")
+metadata/_edit_lock_ = true
+
+[node name="AsteroidsPath" type="Path2D" parent="Map"]
+z_index = 1
+scale = Vector2(0.125, 0.125)
+curve = SubResource("Curve2D_1kice")
+
+[node name="AsteroidPathFollow" type="PathFollow2D" parent="Map/AsteroidsPath"]
+unique_name_in_owner = true
+position = Vector2(-584, 4264.6895)
+rotation = -1.5707964
+progress = 4082.3147
 
 [node name="MapAnimationPlayer" type="AnimationPlayer" parent="Map"]
 unique_name_in_owner = true
@@ -388,7 +452,11 @@ libraries = {
 &"": SubResource("AnimationLibrary_1kice")
 }
 
+[node name="Asteroids" type="Node" parent="Map"]
+unique_name_in_owner = true
+
 [node name="Rects" type="Control" parent="."]
+z_index = 3
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("3_ir15t")
@@ -398,28 +466,49 @@ layout_mode = 0
 offset_right = 1440.0
 offset_bottom = 1080.0
 color = Color(0.83137256, 0.8156863, 0.78431374, 1)
+metadata/_edit_lock_ = true
 
 [node name="BG2" type="ColorRect" parent="Rects"]
-z_index = 1
+z_index = 2
 layout_mode = 0
 offset_top = 1071.0
 offset_right = 1052.0
 offset_bottom = 1080.0
 color = Color(0.83137256, 0.8156863, 0.78431374, 1)
+metadata/_edit_lock_ = true
 
 [node name="BG3" type="ColorRect" parent="Rects"]
-z_index = 1
+z_index = 2
 layout_mode = 0
 offset_right = 1046.0
 offset_bottom = 88.0
 color = Color(0.83137256, 0.8156863, 0.78431374, 1)
+metadata/_edit_lock_ = true
 
 [node name="BG4" type="ColorRect" parent="Rects"]
-z_index = 1
+z_index = 2
 layout_mode = 0
 offset_right = 1054.0
 offset_bottom = 162.0
 color = Color(0.83137256, 0.8156863, 0.78431374, 1)
+metadata/_edit_lock_ = true
+
+[node name="BG5" type="ColorRect" parent="Rects"]
+z_index = 2
+layout_mode = 0
+offset_right = 24.0
+offset_bottom = 1080.0
+color = Color(0.83137256, 0.8156863, 0.78431374, 1)
+metadata/_edit_lock_ = true
+
+[node name="BG6" type="ColorRect" parent="Rects"]
+z_index = 2
+layout_mode = 0
+offset_left = 1048.0
+offset_right = 1440.0
+offset_bottom = 1080.0
+color = Color(0.83137256, 0.8156863, 0.78431374, 1)
+metadata/_edit_lock_ = true
 
 [node name="Header" type="ColorRect" parent="Rects"]
 z_index = 2
@@ -429,6 +518,7 @@ offset_top = 11.0
 offset_right = 1428.0
 offset_bottom = 71.0
 color = Color(0, 0, 0.5019608, 1)
+metadata/_edit_lock_ = true
 
 [node name="Label" type="Label" parent="Rects/Header"]
 layout_mode = 0
@@ -441,13 +531,14 @@ theme_override_font_sizes/font_size = 29
 text = "Solar Oddysey: \"For some reason, humanity has decided to fly into the sun\""
 
 [node name="HeaderPlanet" type="ColorRect" parent="Rects"]
-z_index = 2
+z_index = 3
 layout_mode = 0
 offset_left = 1070.0
 offset_top = 89.0
 offset_right = 1416.0
 offset_bottom = 149.0
 color = Color(0, 0, 0.5019608, 1)
+metadata/_edit_lock_ = true
 
 [node name="Label" type="Label" parent="Rects/HeaderPlanet"]
 layout_mode = 0
@@ -460,7 +551,7 @@ theme_override_font_sizes/font_size = 30
 text = "Milestones"
 
 [node name="HeaderLaunchInfo" type="ColorRect" parent="Rects"]
-z_index = 2
+z_index = 3
 layout_mode = 0
 offset_left = 1070.0
 offset_top = 315.21
@@ -468,6 +559,7 @@ offset_right = 1416.0
 offset_bottom = 375.21
 color = Color(0, 0, 0.5019608, 1)
 metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="Label" type="Label" parent="Rects/HeaderLaunchInfo"]
 layout_mode = 0
@@ -480,7 +572,7 @@ theme_override_font_sizes/font_size = 30
 text = "Launch Data"
 
 [node name="HeaderCrowdfunding" type="ColorRect" parent="Rects"]
-z_index = 2
+z_index = 3
 layout_mode = 0
 offset_left = 1070.0
 offset_top = 624.0
@@ -488,6 +580,7 @@ offset_right = 1416.0
 offset_bottom = 684.0
 color = Color(0, 0, 0.5019608, 1)
 metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="Label" type="Label" parent="Rects/HeaderCrowdfunding"]
 layout_mode = 0
@@ -500,7 +593,7 @@ theme_override_font_sizes/font_size = 30
 text = "Crowdfunding"
 
 [node name="HeaderUpgrades" type="ColorRect" parent="Rects"]
-z_index = 2
+z_index = 3
 layout_mode = 0
 offset_left = 1070.0
 offset_top = 829.0
@@ -508,6 +601,7 @@ offset_right = 1416.0
 offset_bottom = 889.0
 color = Color(0, 0, 0.5019608, 1)
 metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="Label" type="Label" parent="Rects/HeaderUpgrades"]
 layout_mode = 0
@@ -520,11 +614,13 @@ theme_override_font_sizes/font_size = 30
 text = "Upgrades"
 
 [node name="SideWindow" type="ColorRect" parent="Rects"]
+z_index = 2
 layout_mode = 0
 offset_left = 1060.0
 offset_top = 77.0
 offset_right = 1428.0
 offset_bottom = 1072.0
+metadata/_edit_lock_ = true
 
 [node name="Window2" type="ColorRect" parent="Rects/SideWindow"]
 layout_mode = 0
@@ -541,6 +637,7 @@ offset_left = 24.0
 offset_top = 77.0
 offset_right = 1048.0
 offset_bottom = 156.0
+metadata/_edit_lock_ = true
 
 [node name="Window2" type="ColorRect" parent="Rects/UpperWindow"]
 layout_mode = 0
@@ -551,12 +648,14 @@ offset_bottom = 76.0
 color = Color(0.83137256, 0.8156863, 0.78431374, 1)
 
 [node name="MilestoneEarth" type="ColorRect" parent="Rects"]
+z_index = 3
 layout_mode = 0
 offset_left = 1071.0
 offset_top = 158.0
 offset_right = 1235.0
 offset_bottom = 220.0
 metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="BlackBottom" type="ColorRect" parent="Rects/MilestoneEarth"]
 layout_mode = 0
@@ -593,12 +692,14 @@ text = "Earth"
 
 [node name="MilestoneVenus" type="ColorRect" parent="Rects"]
 unique_name_in_owner = true
+z_index = 3
 layout_mode = 0
 offset_left = 1246.0
 offset_top = 158.0
 offset_right = 1410.0
 offset_bottom = 220.0
 metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="BlackBottom" type="ColorRect" parent="Rects/MilestoneVenus"]
 layout_mode = 0
@@ -642,12 +743,14 @@ color = Color(0, 0, 0, 0.54901963)
 
 [node name="MilestoneMercury" type="ColorRect" parent="Rects"]
 unique_name_in_owner = true
+z_index = 3
 layout_mode = 0
 offset_left = 1071.0
 offset_top = 229.0
 offset_right = 1235.0
 offset_bottom = 291.0
 metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="BlackBottom" type="ColorRect" parent="Rects/MilestoneMercury"]
 layout_mode = 0
@@ -691,12 +794,14 @@ color = Color(0, 0, 0, 0.54901963)
 
 [node name="MilestoneSun" type="ColorRect" parent="Rects"]
 unique_name_in_owner = true
+z_index = 3
 layout_mode = 0
 offset_left = 1246.0
 offset_top = 229.0
 offset_right = 1410.0
 offset_bottom = 291.0
 metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="BlackBottom" type="ColorRect" parent="Rects/MilestoneSun"]
 layout_mode = 0
@@ -740,11 +845,13 @@ color = Color(0, 0, 0, 0.54901963)
 
 [node name="LaunchDataC" type="ColorRect" parent="Rects"]
 unique_name_in_owner = true
+z_index = 3
 layout_mode = 0
 offset_left = 1071.0
 offset_top = 381.0
 offset_right = 1412.0
 offset_bottom = 608.0
+metadata/_edit_lock_ = true
 
 [node name="BlackBottom" type="ColorRect" parent="Rects/LaunchDataC"]
 layout_mode = 0
@@ -783,11 +890,13 @@ Stability: 100.0%
 Ammo: 0"
 
 [node name="CrowdfundingC" type="ColorRect" parent="Rects"]
+z_index = 3
 layout_mode = 0
 offset_left = 1071.0
 offset_top = 693.0
 offset_right = 1412.0
 offset_bottom = 810.0
+metadata/_edit_lock_ = true
 
 [node name="BlackBottom" type="ColorRect" parent="Rects/CrowdfundingC"]
 layout_mode = 0
@@ -825,11 +934,13 @@ text = "Rate: 10,000.00$/s
 (w/o trip bonuses)"
 
 [node name="UpgradeFuelC" type="ColorRect" parent="Rects"]
+z_index = 3
 layout_mode = 0
 offset_left = 1071.0
 offset_top = 896.0
 offset_right = 1412.0
 offset_bottom = 942.0
+metadata/_edit_lock_ = true
 
 [node name="BlackBottom" type="ColorRect" parent="Rects/UpgradeFuelC"]
 layout_mode = 0
@@ -871,12 +982,14 @@ theme_override_font_sizes/font_size = 22
 text = "Energy: 1,000,000$"
 
 [node name="UpgradeStabilityC" type="ColorRect" parent="Rects"]
+z_index = 3
 layout_mode = 0
 offset_left = 1071.0
 offset_top = 952.0
 offset_right = 1412.0
 offset_bottom = 998.0
 metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="BlackBottom" type="ColorRect" parent="Rects/UpgradeStabilityC"]
 layout_mode = 0
@@ -918,12 +1031,14 @@ offset_bottom = 51.0
 color = Color(0, 0, 0, 0.54901963)
 
 [node name="UpgradeFuelC3" type="ColorRect" parent="Rects"]
+z_index = 3
 layout_mode = 0
 offset_left = 1071.0
 offset_top = 1008.0
 offset_right = 1412.0
 offset_bottom = 1054.0
 metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="BlackBottom" type="ColorRect" parent="Rects/UpgradeFuelC3"]
 layout_mode = 0
@@ -977,6 +1092,7 @@ theme_override_constants/outline_size = 2
 theme_override_fonts/font = ExtResource("2_yqjtg")
 theme_override_font_sizes/font_size = 30
 text = "Budget: 0.00$"
+metadata/_edit_lock_ = true
 
 [node name="Launch" type="ColorRect" parent="Rects"]
 unique_name_in_owner = true
@@ -986,6 +1102,7 @@ offset_left = 31.0
 offset_top = 84.0
 offset_right = 459.0
 offset_bottom = 146.0
+metadata/_edit_lock_ = true
 
 [node name="BlackBottom" type="ColorRect" parent="Rects/Launch"]
 layout_mode = 0
@@ -1036,9 +1153,22 @@ offset_bottom = 66.0
 theme_override_styles/normal = ExtResource("4_trtic")
 
 [node name="Rocket" type="Node2D" parent="."]
-z_index = 10
+z_index = 4
 position = Vector2(537, 471)
 scale = Vector2(3, 3)
+script = ExtResource("7_5newe")
+
+[node name="Astronaut" type="Sprite2D" parent="Rocket"]
+position = Vector2(3.8146973e-06, -4)
+rotation = 6.2831855
+scale = Vector2(0.33333334, 0.33333334)
+texture = ExtResource("9_bt5mj")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Rocket/Astronaut"]
+libraries = {
+&"": SubResource("AnimationLibrary_suyxu")
+}
+autoplay = "new_animation"
 
 [node name="Ship" type="Node2D" parent="Rocket"]
 unique_name_in_owner = true
@@ -1095,7 +1225,6 @@ texture = ExtResource("13_37s47")
 [node name="BlueFire" type="AnimatedSprite2D" parent="Rocket"]
 unique_name_in_owner = true
 visible = false
-z_index = -1
 position = Vector2(0, 16)
 sprite_frames = SubResource("SpriteFrames_1kice")
 animation = &"extinguish"
@@ -1112,7 +1241,6 @@ animation = &"boom"
 [node name="OrangeFire" type="AnimatedSprite2D" parent="Rocket"]
 unique_name_in_owner = true
 visible = false
-z_index = -1
 position = Vector2(0, 0.66666603)
 sprite_frames = SubResource("SpriteFrames_bt5mj")
 animation = &"extinguish"
@@ -1120,10 +1248,11 @@ animation = &"extinguish"
 [node name="WhiteFire" type="AnimatedSprite2D" parent="Rocket"]
 unique_name_in_owner = true
 visible = false
-z_index = -1
 position = Vector2(0, 0.9999995)
 sprite_frames = SubResource("SpriteFrames_e1j6l")
-animation = &"extinguish"
+animation = &"ignite"
+frame = 2
+frame_progress = 1.0
 speed_scale = 2.0
 
 [node name="RocketAnimationPlayer" type="AnimationPlayer" parent="Rocket"]
@@ -1132,12 +1261,26 @@ libraries = {
 &"": SubResource("AnimationLibrary_5newe")
 }
 
+[node name="HitArea" type="Area2D" parent="Rocket"]
+unique_name_in_owner = true
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rocket/HitArea"]
+position = Vector2(0, -4)
+shape = SubResource("CapsuleShape2D_264po")
+
 [connection signal="activate_gui" from="." to="Rects" method="_on_game_activate_gui"]
 [connection signal="countdown" from="." to="Rects" method="_on_game_countdown"]
+[connection signal="toggle_spawn" from="." to="Map" method="_on_game_toggle_spawn"]
 [connection signal="animation_finished" from="Map/MapAnimationPlayer" to="." method="_on_map_animation_player_animation_finished"]
 [connection signal="pressed" from="Rects/Launch/LaunchButton" to="." method="_on_launch_button_pressed"]
 [connection signal="pressed" from="Rects/Launch/LaunchButton" to="Rects" method="_on_launch_button_pressed"]
+[connection signal="dead" from="Rocket" to="Map" method="_on_rocket_dead"]
+[connection signal="dead" from="Rocket" to="Rects" method="_on_rocket_dead"]
 [connection signal="animation_finished" from="Rocket/BlueFire" to="." method="_on_blue_fire_animation_finished"]
+[connection signal="animation_finished" from="Rocket/Explode" to="Rocket" method="_on_explode_animation_finished"]
 [connection signal="animation_finished" from="Rocket/OrangeFire" to="." method="_on_orange_fire_animation_finished"]
 [connection signal="animation_finished" from="Rocket/WhiteFire" to="." method="_on_white_fire_animation_finished"]
 [connection signal="animation_finished" from="Rocket/RocketAnimationPlayer" to="." method="_on_rocket_animation_player_animation_finished"]
+[connection signal="area_entered" from="Rocket/HitArea" to="Rocket" method="_on_hit_area_area_entered"]

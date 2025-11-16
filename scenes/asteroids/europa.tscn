@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckf4h6w6gvkwg"]
+
+[ext_resource type="PackedScene" uid="uid://dq78ncc3bpinb" path="res://scenes/asteroid.tscn" id="1_j10c5"]
+[ext_resource type="Texture2D" uid="uid://cyhpqd8u7f7nv" path="res://assets/aseprite/asteroid/europa.png" id="2_kw120"]
+
+[node name="Europa" instance=ExtResource("1_j10c5")]
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_kw120")
+
+[node name="CollisionShape2D" parent="CollideArea" index="0"]
+position = Vector2(1, 0)
+rotation = -0.14791997

@@ -1,7 +1,7 @@
 extends Node
 
 var completed := false
-var planet: G.PLANET = G.PLANET.EARTH
+var planet: G.PLANET = G.PLANET.MERCURY
 var launched := false
 var upgrades := {
 	"fuel": 1,

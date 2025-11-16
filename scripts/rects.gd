@@ -8,8 +8,14 @@ var t := 0.0
 
 func _ready() -> void:
 	%MilestoneVenus/Deactivated.visible = true
-	%MilestoneMercury.visible = true
-	%MilestoneSun.visible = true
+	%MilestoneMercury/Deactivated.visible = true
+	%MilestoneSun/Deactivated.visible = true
+	
+	match State.planet:
+		G.PLANET.VENUS:
+			%MilestoneVenus/Deactivated.visible = false
+		G.PLANET.MERCURY:
+			%MilestoneMercury/Deactivated.visible = false
 	
 	update_state()
 	update_launch_data()
@@ -72,3 +78,7 @@ func update_launch_data() -> void:
 	%LaunchDataC/Label.text += "\nFuel: " + str(snapped(State.fuel, 0.1)) + "kL"
 	%LaunchDataC/Label.text += "\nStability: " + str(snapped(State.stability, 0.01)) + "%"
 	%LaunchDataC/Label.text += "\nAmmo: " + str(State.ammo)
+
+
+func _on_rocket_dead() -> void:
+	t = t0

@@ -2,11 +2,18 @@ extends Node2D
 
 signal activate_gui
 signal countdown(time: float)
+signal toggle_spawn(s: bool)
 
 
 func _ready() -> void:
 	reset_spaceship()
-	%MapAnimationPlayer.play("earth")
+	match State.planet:
+		G.PLANET.EARTH:
+			%MapAnimationPlayer.play("earth")
+		G.PLANET.VENUS:
+			%MapAnimationPlayer.play("venus")
+		G.PLANET.MERCURY:
+			%MapAnimationPlayer.play("mercury")
 
 
 func _process(_delta: float) -> void:
@@ -15,6 +22,7 @@ func _process(_delta: float) -> void:
 
 func _on_launch_button_pressed() -> void:
 	launch()
+	toggle_spawn.emit(true)
 
 
 func launch() -> void:
@@ -102,9 +110,10 @@ func win() -> void:
 
 
 func _on_map_animation_player_animation_finished(anim_name: StringName) -> void:
-	if State.planet == G.PLANET.MERCURY:
+	if anim_name == "mercury_sun":
 		win()
 	elif anim_name == "earth_venus" || anim_name == "venus_mercury":
+		toggle_spawn.emit(false)
 		land()
 
 
@@ -116,6 +125,8 @@ func land() -> void:
 			State.planet = G.PLANET.MERCURY
 	
 	%RocketAnimationPlayer.play("offset")
+	%Rocket.hide_all()
+	%Ship100.visible = true
 
 
 func _on_rocket_animation_player_animation_finished(anim_name: StringName) -> void:

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bvllj1p2oebg4"]
+
+[ext_resource type="PackedScene" uid="uid://dq78ncc3bpinb" path="res://scenes/asteroid.tscn" id="1_cahvn"]
+[ext_resource type="Texture2D" uid="uid://b14yac7hf0w0y" path="res://assets/aseprite/asteroid/themis.png" id="2_3fqli"]
+
+[node name="Themis" instance=ExtResource("1_cahvn")]
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_3fqli")
+
+[node name="CollisionShape2D" parent="CollideArea" index="0"]
+position = Vector2(0, 3)
+rotation = 0.7411877
