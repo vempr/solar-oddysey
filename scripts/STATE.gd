@@ -1,7 +1,7 @@
 extends Node
 
 var completed := false
-var planet: G.PLANET = G.PLANET.MERCURY
+var planet: G.PLANET = G.PLANET.EARTH
 var launched := false
 var upgrades := {
 	"fuel": 1,
@@ -9,6 +9,7 @@ var upgrades := {
 	"ammo": 1
 } # max upgrade is 15
 
+var budget := 0.0
 var distance := 40_000_000.0
 var fuel := 10.0
 var stability := 100.00

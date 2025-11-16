@@ -31,12 +31,12 @@ func spawn_asteroid() -> void:
 		G.PLANET.VENUS:
 			%AsteroidPathFollow.progress_ratio = randf_range(0.25, 0.54)
 		G.PLANET.MERCURY:
-			%AsteroidPathFollow.progress_ratio = randf_range(0.58, 0.95)
-			ast.MIN_SPEED = 100.0
-			ast.MAX_SPEED = 200.0
+			%AsteroidPathFollow.progress_ratio = randf_range(0.6, 0.9)
+			#ast.MIN_SPEED = 100.0
+			#ast.MAX_SPEED = 200.0
 	
-	ast.global_position.x = %AsteroidPathFollow.position.x/8.0
-	ast.global_position.y = %AsteroidPathFollow.position.y/8.0
+	ast.global_position.x = -600.0
+	ast.global_position.y = %AsteroidPathFollow.global_position.y/8.0
 	%Asteroids.add_child(ast)
 	
 	a.append(ast)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://dwd0guyo0vvet"]
+[gd_scene load_steps=58 format=3 uid="uid://dwd0guyo0vvet"]
 
 [ext_resource type="Script" uid="uid://cidhqnx17ewn4" path="res://scripts/game.gd" id="1_uwrxv"]
 [ext_resource type="FontFile" uid="uid://ctndyye843nan" path="res://assets/M 8pt.ttf" id="2_yqjtg"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://dit5yldu8b73e" path="res://assets/aseprite/spaceship/ship-30.png" id="6_ir15t"]
 [ext_resource type="Script" uid="uid://da3fqpmlunqrr" path="res://scripts/rocket.gd" id="7_5newe"]
 [ext_resource type="Texture2D" uid="uid://b0bj3hrgofgn3" path="res://assets/aseprite/spaceship/ship-40.png" id="7_ca42v"]
+[ext_resource type="Texture2D" uid="uid://doulujakm6cl0" path="res://assets/aseprite/spaceship/gun.png" id="8_e1j6l"]
 [ext_resource type="Texture2D" uid="uid://bdundjwrbc2dq" path="res://assets/aseprite/spaceship/ship-50.png" id="8_rysoc"]
 [ext_resource type="Texture2D" uid="uid://belf5bhrvkdwa" path="res://assets/aseprite/astronaut.png" id="9_bt5mj"]
 [ext_resource type="Texture2D" uid="uid://bls4y8xh22m17" path="res://assets/aseprite/spaceship/ship-60.png" id="9_ssvqc"]
@@ -1158,6 +1159,16 @@ position = Vector2(537, 471)
 scale = Vector2(3, 3)
 script = ExtResource("7_5newe")
 
+[node name="Gun" type="Node2D" parent="Rocket"]
+unique_name_in_owner = true
+position = Vector2(0, -10.666641)
+rotation = -6.2831855
+
+[node name="GunSprite" type="Sprite2D" parent="Rocket/Gun"]
+z_index = 5
+scale = Vector2(2, 2)
+texture = ExtResource("8_e1j6l")
+
 [node name="Astronaut" type="Sprite2D" parent="Rocket"]
 position = Vector2(3.8146973e-06, -4)
 rotation = 6.2831855
@@ -1263,12 +1274,11 @@ libraries = {
 
 [node name="HitArea" type="Area2D" parent="Rocket"]
 unique_name_in_owner = true
-monitoring = false
-monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rocket/HitArea"]
 position = Vector2(0, -4)
 shape = SubResource("CapsuleShape2D_264po")
+metadata/_edit_lock_ = true
 
 [connection signal="activate_gui" from="." to="Rects" method="_on_game_activate_gui"]
 [connection signal="countdown" from="." to="Rects" method="_on_game_countdown"]

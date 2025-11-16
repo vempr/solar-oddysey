@@ -14,6 +14,7 @@ script = ExtResource("1_akfqu")
 scale = Vector2(4, 4)
 
 [node name="CollideArea" type="Area2D" parent="."]
+collision_layer = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollideArea"]
 shape = SubResource("CapsuleShape2D_tiu4v")

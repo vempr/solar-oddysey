@@ -15,6 +15,7 @@ func _ready() -> void:
 		G.PLANET.VENUS:
 			%MilestoneVenus/Deactivated.visible = false
 		G.PLANET.MERCURY:
+			%MilestoneVenus/Deactivated.visible = false
 			%MilestoneMercury/Deactivated.visible = false
 	
 	update_state()
@@ -22,6 +23,8 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	%Budget.text = "Budget: " + G.to_money(State.budget) + "$"
+
 	if t < t0:
 		t += delta
 		if t > t0:

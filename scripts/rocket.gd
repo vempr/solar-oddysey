@@ -1,10 +1,18 @@
 extends Node2D
 
 signal dead
+@onready var BulletScene := preload("res://scenes/bullet.tscn")
 
 
 func _process(_delta: float) -> void:
-	pass
+	%Gun.look_at(get_global_mouse_position())
+	%Gun.rotation += deg_to_rad(90)
+	
+	if Input.is_action_pressed("shoot"):
+		var b = BulletScene.instantiate()
+		b.rotation = %Gun.rotation - deg_to_rad(90)
+		b.global_position = %Gun.global_position
+		get_parent().add_child(b)
 
 
 func hide_all() -> void:
@@ -57,9 +65,11 @@ func _on_hit_area_area_entered(area: Area2D) -> void:
 	elif s >= 0.0:
 		%Ship10.visible = true
 	else:
+		State.stability = 0.0
 		dead.emit()
 		
 		%Ship.visible = false
+		%Gun.visible = false
 		%HitArea.set_deferred("monitoring", false)
 		%HitArea.set_deferred("monitorable", false)
 		
